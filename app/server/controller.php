@@ -61,6 +61,18 @@ class workList
                     echo json_encode($work);
                     die;
                     break;
+                case 'edit':
+                    $id = $param['id'];
+                    $sql = "SELECT * FROM `work` WHERE id=$id";
+                    $retval = mysql_query($sql);
+                    if (!$retval) {
+                        die('Could not get data: ' . mysql_error());
+                    }
+
+                    $work = mysql_fetch_array($retval, MYSQL_ASSOC);
+                    echo json_encode($work);
+                    die;
+                    break;
             }
         }
     }

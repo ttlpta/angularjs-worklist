@@ -1,26 +1,20 @@
 workListComponent.component('workList', {
     templateUrl: 'work-list/work-list.template.html',
     controllerAs: 'workListCrl',
-    controller: ['$sce', 'Work', workListController]
+    controller: ['Work', 'workService', workListController]
 });
 
-function workListController($sce, Work) {
+function workListController(Work, workService) {
     var self = this;
     this.works = Work.query();
     this.saveMemo = function () {
-        var work = [];
         var title = self.title;
         var detail = self.detail;
-        if (title) {
-            self.work = new Work({title: title, detail: detail});
-            self.work.action = 'save';
-            self.work.$save(function () {
-                alert('Save');
-            });
-            work['title'] = $sce.trustAsHtml('<a href="#">' + title + '</a>');
-            self.works.push(work);
-            self.title = '';
-            self.detail = '';
-        }
-    }
+        var work = [];
+        workService.saveWork(title, detail)
+        work['title'] =  title;
+        self.works.push(work);
+        self.title = '';
+        self.detail = '';
+    };
 }

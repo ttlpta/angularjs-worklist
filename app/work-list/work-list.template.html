@@ -1,6 +1,6 @@
 <h1>List work have to do</h1>
 <ul>
-	<li ng-repeat="work in workListCrl.works" ng-bind-html="work.title">{{work.title}}</li>
+	<li ng-repeat="work in workListCrl.works"><a href="#" >{{work.title}}</a></li>
 </ul>
 <div>
     <form ng-submit="workListCrl.saveMemo()">

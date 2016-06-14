@@ -1,0 +1,1 @@
+var workDetailComponent = angular.module('workDetailComponent',['ngRoute']);
