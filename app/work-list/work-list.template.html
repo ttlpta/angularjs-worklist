@@ -1,0 +1,11 @@
+<h1>List work have to do</h1>
+<ul>
+	<li ng-repeat="work in workListCrl.works" ng-bind-html="work.title">{{work.title}}</li>
+</ul>
+<div>
+    <form ng-submit="workListCrl.saveMemo()">
+        <input type="text" ng-model="workListCrl.title" placeholder="Your title of work"/> <br /><br /><br /><br /><br />
+        <textarea ng-model="workListCrl.detail" placeholder="Detail..." ></textarea><br /><br /><br /><br />
+        <input type="submit" value="Save" />
+    </form>
+</div>
