@@ -1,25 +1,36 @@
-coreWork.factory('Work', ['$resource',
-    function ($resource) {
-        return $resource('server/controller.php', {}, {
-            query: {
-                method: 'GET',
-                params: {action: 'list'},
-                isArray: true
-            }
-        });
-    }
-]);
+// coreWork.factory('Work', ['$http',
+    // function ($http) {
+        // return {
+            
+        // };
+
+        //return $resource('server/controller.php', {}, {
+        //    query: {
+        //        method: 'GET',
+        //        params: {action: 'list'},
+        //        isArray: true
+        //    }
+        //});
+    // }
+// ]);
 //service
-coreWork.factory('workService', ['Work',
-    function (Work) {
+coreWork.factory('workService', ['$http',
+    function ($http) {
         return {
             saveWork: function (title, detail) {
                 if (title) {
-                    workData = new Work({title: title, detail: detail});
-                    workData.action = 'save';
-                    workData.$save(function () {
-                        alert('Save');
-                    });
+					data = {
+						title : title,
+						detail : detail,
+						action : 'save'
+					};
+					
+					var a;
+					$http.post('server/controller.php', data).then(function successCallback(response) {
+						.a = response.data;
+					});
+					
+					return a;
                 }
             }
         };

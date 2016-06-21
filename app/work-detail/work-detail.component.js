@@ -8,8 +8,8 @@ function workDetailController($scope, $routeParams, Work, workService) {
     var self = this;
     this.work = Work.get({action: 'edit', id: $routeParams.workId});
     this.saveMemo = function(){
-        var title = self.title;
-        var detail = self.detail;
-        workService.saveWork(title, detail);
+        var title = self.work.title;
+        var detail = self.work.detail;
+        workService.saveWork(title, detail, $routeParams.workId);
     };
 }
