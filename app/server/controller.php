@@ -37,7 +37,6 @@ class workList
     public function __construct(connectedInterface $conn, $param)
     {
         if (!empty($param['action'])) {
-//            mysql_select_db('', $conn->connected());
             $connected = $conn->connected();
             switch ($param['action']) {
                 case 'save':
@@ -61,6 +60,7 @@ class workList
                 case 'list':
                     $sql = 'SELECT * FROM `work`';
                     $retval = mysqli_query($connected, $sql);
+					$work = array();
                     while ($row = mysqli_fetch_array($retval, MYSQLI_ASSOC)) {
                         $work[] = $row;
                     }

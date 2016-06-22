@@ -1,37 +1,20 @@
-// coreWork.factory('Work', ['$http',
-    // function ($http) {
-        // return {
-            
-        // };
-
-        //return $resource('server/controller.php', {}, {
-        //    query: {
-        //        method: 'GET',
-        //        params: {action: 'list'},
-        //        isArray: true
-        //    }
-        //});
-    // }
-// ]);
 //service
 coreWork.factory('workService', ['$http',
     function ($http) {
+		var a;
+		var self = this;
         return {
-            saveWork: function (title, detail) {
-                if (title) {
-					data = {
-						title : title,
-						detail : detail,
-						action : 'save'
-					};
-					
-					var a;
-					$http.post('server/controller.php', data).then(function successCallback(response) {
-						.a = response.data;
-					});
-					
-					return a;
-                }
+            saveWork: function (title, detail, id) {
+				data = {
+					title : title,
+					detail : detail,
+					action : 'save'
+				};
+				
+				if (id)
+					data.id = id;
+				
+				return $http.post('server/controller.php', data);
             }
         };
     }
