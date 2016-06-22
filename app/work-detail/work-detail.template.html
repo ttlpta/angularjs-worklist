@@ -1,5 +1,6 @@
-<form ng-submit="workDetailCrl.saveMemo()">
-    Title: <input ng-model="workDetailCrl.work.title" />
-    Detail: <input ng-model="workDetailCrl.work.detail" />
-    <input type="submit" value="OK"/>
+<form name="workDetailForm" ng-submit="workDetailCrl.saveMemo()">
+    Title: <input name="title" ng-model="workDetailCrl.work.title" />
+    Detail: <input name="detail" ng-model="workDetailCrl.work.detail" />
+    <input type="submit" value="OK" ng-disabled="workDetailForm.title.$untouched && workDetailForm.detail.$untouched"/>
 </form>
+<back-url></back-url>
