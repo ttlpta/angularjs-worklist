@@ -80,6 +80,13 @@ class workList
                     echo json_encode($work);
                     die;
                     break;
+					
+				case 'delete':
+                    $id = $param['id'];
+                    $sql = "DELETE FROM `work` WHERE id=$id;";
+                    $retval = mysqli_query($connected, $sql);
+                    die;
+                    break;
             }
         }
     }

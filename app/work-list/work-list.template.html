@@ -1,9 +1,9 @@
 <h1>List work have to do</h1>
 <ul>
-	<li ng-repeat="work in workListCrl.works"><a ng-href="{{workListCrl.url_detail(work.id)}}" >{{work.title}}</a>
+	<li ng-repeat="work in workListCrl.works"><a ng-href="{{(work.url_detail) ? work.url_detail : workListCrl.url_detail(work.id)}}" >{{work.title}}</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" ng-click="deleteWork({{work.id}})">[X]</a></li>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ng-href="javascript:void(0)" ng-click="workListCrl.deleteWork($index, work.id)">[X]</a></li>
 </ul>
 <div>
     <form ng-submit="workListCrl.saveWork()">

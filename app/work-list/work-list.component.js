@@ -7,7 +7,8 @@ workListComponent.component('workList', {
 function workListController($http, $location, workService) {
     var self = this;
 	var works = [];
-    $http.get('server/controller.php?action=list').then(function(response) {
+	var hide = true;
+    workService.listWork().then(function(response) {
 		self.works = response.data;
 		self.url_detail = function(id){
 			return $location.absUrl()+'/'+id;
@@ -19,14 +20,11 @@ function workListController($http, $location, workService) {
         var detail = self.detail;
 		var id;
 		var work = [];
-		
 		if (title)
 			workService.saveWork(title, detail).then(function successCallback(response) {
 				work['title'] =  title;
 				work['url_detail'] =  $location.absUrl()+'/'+response.data.id;
-				
 				self.works.push(work);
-				alert('save');
 				self.title = '';
 				self.detail = '';
 			}, function errorCallback(response) {
@@ -34,7 +32,12 @@ function workListController($http, $location, workService) {
 			});
     };
 	
-	// this.deleteWork = function ($id) {
-		
-	// }
+	this.deleteWork = function (index, id) {
+		workService.deleteWork(id).then(function(response) {
+			alert('deleted');
+			self.works.splice(index, 1);
+		}, function errorCallback(response) {
+			alert('error');
+		});
+	}
 }
