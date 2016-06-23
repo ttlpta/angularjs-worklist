@@ -1,6 +1,6 @@
-<form name="workDetailForm" ng-submit="workDetailCrl.saveMemo()">
-    Title: <input name="title" ng-model="workDetailCrl.work.title" />
-    Detail: <input name="detail" ng-model="workDetailCrl.work.detail" />
-    <input type="submit" value="OK" ng-disabled="workDetailForm.title.$untouched && workDetailForm.detail.$untouched"/>
+<form name="workDetailForm" ng-submit="workDetailCrl.saveMemo()" >{{workDetailCrl.add}}
+    Title: <input name="title" ng-model="workDetailCrl.work.title" ng-change="workDetailCrl.changed()"/>
+    Detail: <input name="detail" ng-model="workDetailCrl.work.detail" ng-change="workDetailCrl.changed()"/>
+    <input type="submit" value="OK" ng-disabled="workDetailCrl.unChanged"/>
 </form>
 <a ng-href="{{workDetailCrl.host}}/angularjs-worklist/app/index.html#!/work">Back to home</a>

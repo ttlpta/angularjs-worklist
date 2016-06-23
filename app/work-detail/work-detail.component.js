@@ -6,6 +6,7 @@ workDetailComponent.component('workDetail', {
 
 function workDetailController($scope, $routeParams, workService, $http, $location) {
     var self = this;
+	this.unChanged = true;
 	var host = $location.host();
 	workService.listDetailWork($routeParams.workId).then(function(response) {
 		self.work = response.data;
@@ -22,4 +23,9 @@ function workDetailController($scope, $routeParams, workService, $http, $locatio
 			alert(response);
 		});;
     };
+	
+	this.changed = function(){
+		self.unChanged = false;
+	}
+	
 }
