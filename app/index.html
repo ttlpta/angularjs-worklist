@@ -3,9 +3,18 @@
 <head>
 	<script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+	
+    <script src="../app/node_modules/angular-aria/angular-aria.js"></script>
+	<script src="../app/node_modules/angular-animate/angular-animate.js"></script>
+    <script src="../app/node_modules/angular-material/angular-material.js"></script>
+	
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="../app/node_modules/angular-material/angular-material.css"/>
+	<link rel="stylesheet" href="../app/assets/app.css"/>
+	
+
 	<script src="app.module.js"></script>
 	<script src="app.config.js"></script>
 
@@ -19,7 +28,7 @@
 	<script src="core/work/work.module.js"></script>
 	<script src="core/work/work.service.js"></script>
 </head>
-<body>
+<body layout="column" ng-cloak>
     <div ng-view></div>
 </body>
 </html>

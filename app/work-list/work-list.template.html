@@ -1,14 +1,42 @@
-<h1>List work have to do</h1>
-<ul>
+<md-toolbar layout="row">
+	<md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
+		<md-icon md-svg-icon="menu" ></md-icon>
+	</md-button>
+	<h1>List work have to do</h1>
+</md-toolbar>
+
+<div flex layout="row">
+	<md-sidenav  ng-click="ul.toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
+	  <md-list>
+		<md-list-item ng-repeat="work in workListCrl.works">
+			<md-button ng-click="workListCrl.selectWork(work.id)" ng-class="{'selected' : work.id === workListCrl.selected }">
+			  <md-icon md-svg-icon="icon" class="material-icons"></md-icon>
+			  {{work.title}}
+			</md-button>
+		</md-list-item>
+	  </md-list>
+	</md-sidenav>
+	<md-content flex id="content">
+		<h1 class="level-{workListCrl.work.prioty}">{{workListCrl.work.priotyTitle}}</h1>
+		<h2>{{workListCrl.work.title}}</h2>
+		<p>{{workListCrl.work.detail}}</p>
+
+		<md-button class="share" md-no-ink ng-click="ul.makeContact(ul.selected)" aria-label="Share with {{ ul.selected.name }}">
+			<md-icon md-svg-icon="share"></md-icon>
+		</md-button>
+	</md-content>
+</div>
+
+<!-- <ul>
 	<li ng-repeat="work in workListCrl.works"><a ng-href="{{(work.url_detail) ? work.url_detail : workListCrl.url_detail(work.id)}}" >{{work.title}}</a>
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ng-href="javascript:void(0)" ng-click="workListCrl.deleteWork($index, work.id)">[X]</a></li>
-</ul>
-<div>
+</ul> -->
+<!-- <div>
     <form ng-submit="workListCrl.saveWork()">
         <input type="text" ng-model="workListCrl.title" placeholder="Your title of work"/> <br /><br /><br /><br /><br />
         <textarea ng-model="workListCrl.detail" placeholder="Detail..." ></textarea><br /><br /><br /><br />
         <input type="submit" value="Save" />
     </form>
-</div>
+</div> -->
