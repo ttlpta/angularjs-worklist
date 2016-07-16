@@ -1,6 +1,18 @@
-<form name="workDetailForm" ng-submit="workDetailCrl.saveMemo()" >{{workDetailCrl.add}}
-    Title: <input name="title" ng-model="workDetailCrl.work.title" ng-change="workDetailCrl.changed()"/>
-    Detail: <input name="detail" ng-model="workDetailCrl.work.detail" ng-change="workDetailCrl.changed()"/>
-    <input type="submit" value="OK" ng-disabled="workDetailCrl.unChanged"/>
-</form>
-<a ng-href="{{workDetailCrl.host}}/angularjs-worklist/app/index.html#!/work">Back to home</a>
+<md-bottom-sheet class="md-list md-has-header">
+    <md-subheader><h2>Edit Work</h2></md-subheader>
+	<form layout="column" name="workDetailForm" ng-submit="workDetailCtrl.saveMemo()" >
+		<md-content>
+			<!-- Title: <input name="title" ng-model="workDetailCtrl.work.title" ng-change="workDetailCtrl.changed()"/> -->
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Title</label>
+				<input ng-model="workDetailCtrl.work.title">
+			</md-input-container>
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Detail</label>
+				<textarea rows="3" ng-model="workDetailCtrl.work.detail"></textarea>
+			</md-input-container>   
+			<!-- Detail: <input name="detail" ng-model="workDetailCtrl.work.detail" ng-change="workDetailCtrl.changed()"/> -->
+			<md-button class="md-raised md-primary">Save</md-button/>
+		</md-content>
+	</form>
+</md-bottom-sheet>

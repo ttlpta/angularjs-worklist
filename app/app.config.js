@@ -3,10 +3,7 @@ angular.module('workListModule').config(['$locationProvider', '$routeProvider',
         $locationProvider.hashPrefix('!');
         $routeProvider.
             when('/work', {
-                template: '<work-list></work-list>'
-            }).
-            when('/work/:workId', {
-                template: '<work-detail></work-detail>'
+                template: '<work-list layout="column" style="min-width: 100%;"></work-list>'
             }).
             otherwise('/work');
     }

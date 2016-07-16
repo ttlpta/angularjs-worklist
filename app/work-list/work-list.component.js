@@ -1,21 +1,36 @@
 workListComponent.component('workList', {
     templateUrl: 'work-list/work-list.template.html',
     controllerAs: 'workListCrl',
-    controller: ['$http', '$location', 'workService', workListController]
+    controller: ['$http', '$location','$mdBottomSheet', 'workService', workListController]
 });
 
-function workListController($http, $location, workService) {
+function workListController($http, $location, $mdBottomSheet, workService) {
     var self = this;
 	var works = [];
 	
-	
-    workService.listWork().then(function(response) {
-		self.works = response.data;
-		self.url_detail = function(id){
-			return $location.absUrl()+'/'+id;
+	var priotyTitle = function(prioty){
+		var title;
+		switch(+prioty){
+			case 1:
+				title = 'Do after';
+				break;
+			case 2:
+				title = 'Should do';			
+				break;
+			case 3: 
+				title = 'Must do';
+				break;
 		}
-	});
+		return title;
+	};
 	
+	this.works = workService.query();
+	
+	var work = workService.get({ id: 1 }); 
+	this.work = work;
+	// this.work.priotyTitle = priotyTitle(this.work.prioty);
+	console.log(work.id);
+	self.selected = 1;
 						  
     this.saveWork = function () {
         var title = self.title;
@@ -44,30 +59,26 @@ function workListController($http, $location, workService) {
 		});
 	};
 	
-	var priotyTitle = function(prioty){
-		console.log(prioty);
-		var title;
-		switch(prioty){
-			case 1:
-				title = 'Do after';
-				break;
-			case 2:
-				title = 'Should do';			
-				break;
-			case 3: 
-				title = 'Must do';
-				break;
-		}
-		return title;
-	};
 	
 	this.selectWork = function (id) {
-		workService.listDetailWork(id).then(function(response) {
-			
-			self.work = response.data;
-			self.work.priotyTitle = priotyTitle(response.data.id);
-			console.log(self.work);
-			self.selected = id;
-		});	
+		this.work = workService.get({ id: id }); 
+		this.work.priotyTitle = priotyTitle(this.work.prioty);
+		self.selected = id;
 	};
+	
+	this.editWork = function(id){
+		$mdBottomSheet.show({
+			controllerAs  : "workDetailCtrl",
+			templateUrl   : './work-detail/work-detail.template.html',
+			controller    : [ '$mdBottomSheet', 'workService', WorkDetailController],
+			parent        : angular.element(document.getElementById('content'))
+        }).then(function(clickedItem) {
+			$log.debug( clickedItem.name + ' clicked!');
+        });
+
+        function WorkDetailController( $mdBottomSheet, workService ) {
+			var self = this;
+			this.work = workService.get({ action: 'edit', id: id }); 
+        }
+	}
 }
