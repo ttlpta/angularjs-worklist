@@ -29,11 +29,16 @@ class workList
                     $prioty = (isset($param['prioty'])) ? $param['prioty'] : 3;
 	 
                     if(!empty($param['id']) && $id = $param['id']){
-                        $sql = "UPDATE angular_work SET `title` = '$title', `detail` = '$detail', `prioty` = '$prioty' WHERE id = $id";
+                        $sql = "UPDATE angular_work SET `title` = ?, `detail` = ?, `prioty` = ? WHERE id = ?";
+						$stmt = $connected->prepare($sql);
+						$stmt->bind_param('ssii', $title, $detail, $prioty, $id);
                     }else{
-                        $sql = 'INSERT INTO angular_work ( `title`, `detail`, `prioty` ) ' . "VALUES ( '$title', '$detail', $prioty )";
-                    }
-                    $retval = mysqli_query($connected, $sql);
+                        $sql = 'INSERT INTO angular_work ( `title`, `detail`, `prioty` ) ' . "VALUES ( ?, ?, ? )";
+						$stmt = $connected->prepare($sql);
+						$stmt->bind_param('ssi', $title, $detail, $prioty);
+					}
+					$stmt->execute();
+					$retval = $stmt->get_result();
                     $last_id = mysqli_insert_id($connected);
                     if (!$retval) {
                         die('Could not enter data: ' . mysqli_error());
@@ -58,8 +63,11 @@ class workList
                     break;
                 case 'edit':
                     $id = $param['id'];
-                    $sql = "SELECT * FROM `angular_work` WHERE id=$id";
-                    $retval = mysqli_query($connected, $sql);
+					$sql = 'SELECT * FROM `angular_work` WHERE id=?';
+					$stmt = $connected->prepare($sql);
+					$stmt->bind_param('i', $id);
+					$stmt->execute();
+					$retval = $stmt->get_result();
                     if (!$retval) {
                         die('Could not get data: ' . mysql_error());
                     }
@@ -72,8 +80,11 @@ class workList
 					
 				case 'delete':
                     $id = $param['id'];
-                    $sql = "DELETE FROM `angular_work` WHERE id=$id;";
-                    $retval = mysqli_query($connected, $sql);
+					$sql = 'DELETE FROM `angular_work` WHERE id=?';
+					$stmt = $connected->prepare($sql);
+					$stmt->bind_param('i', $id);
+					$stmt->execute();
+					$retval = $stmt->get_result();
                     die;
                     break;
             }
