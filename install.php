@@ -1,5 +1,5 @@
 <?php
-include('db.php');
+include('./app/server/db.php');
 $db = new dbConnecttion();
 $connected = $db->connected();
 $sql = "
