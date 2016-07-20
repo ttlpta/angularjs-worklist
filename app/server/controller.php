@@ -28,24 +28,20 @@ class workList
                     $detail = (isset($param['detail'])) ? $param['detail'] : '';
                     $prioty = (isset($param['prioty'])) ? $param['prioty'] : 3;
 	 
-                    if(!empty($param['id']) && $id = $param['id']){
-                        $sql = "UPDATE angular_work SET `title` = ?, `detail` = ?, `prioty` = ? WHERE id = ?";
+                    if (!empty($param['id']) && $id = $param['id']){
+                        $sql = 'UPDATE angular_work SET `title` = ?, `detail` = ?, `prioty` = ? WHERE id = ?';
 						$stmt = $connected->prepare($sql);
 						$stmt->bind_param('ssii', $title, $detail, $prioty, $id);
-                    }else{
-                        $sql = 'INSERT INTO angular_work ( `title`, `detail`, `prioty` ) ' . "VALUES ( ?, ?, ? )";
+                    } else{
+                        $sql = 'INSERT INTO angular_work ( `title`, `detail`, `prioty` ) VALUES (?, ?, ?)';
 						$stmt = $connected->prepare($sql);
 						$stmt->bind_param('ssi', $title, $detail, $prioty);
 					}
 					$stmt->execute();
 					$retval = $stmt->get_result();
                     $last_id = mysqli_insert_id($connected);
-                    if (!$retval) {
-                        die('Could not enter data: ' . mysqli_error());
-                    }
-
-                    echo json_encode(array('id' => $last_id));
-                    die;
+					
+                    die(json_encode(array('id' => $last_id)));
                     break;
                 case 'list':
                     $sql = 'SELECT * FROM `angular_work`';
@@ -74,8 +70,7 @@ class workList
 
                     $work = mysqli_fetch_array($retval, MYSQL_ASSOC);
 					$work['priotyTitle'] = $priotyTitle($work['prioty']);
-                    echo json_encode($work);
-                    die;
+                    die(json_encode($work));
                     break;
 					
 				case 'delete':
@@ -84,10 +79,11 @@ class workList
 					$stmt = $connected->prepare($sql);
 					$stmt->bind_param('i', $id);
 					$stmt->execute();
-					$retval = $stmt->get_result();
                     die;
                     break;
             }
+			
+			$connected->close();
         }
     }
 }
