@@ -1,42 +1,38 @@
 <md-toolbar>
-	<md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
+	<md-button class="menu" hide-gt-sm ng-click="workListCrl.toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" aria-label="Show User List">
 		<md-icon md-svg-icon="menu" ></md-icon>
 	</md-button>
 	<h1>List work have to do</h1>
 </md-toolbar>
 
 <div flex layout="row">
-	<md-sidenav flex ng-click="ul.toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
+	<md-sidenav flex ng-click="workListCrl.toggleList()" md-is-locked-open="$mdMedia('gt-sm')" md-component-id="left" class="md-whiteframe-z2" >
 	  <md-list>
-		<md-list-item ng-repeat="work in workListCrl.works">	
+		<md-list-item ng-repeat="work in workListCrl.works | orderBy:'-prioty'">	
 			<md-button ng-click="workListCrl.selectWork(work.id)" ng-class="{'selected' : work.id == workListCrl.selected }">
-			  <md-icon md-svg-icon="icon" class="material-icons"></md-icon>
-			  {{work.title}}
+				<md-icon md-svg-icon="icon" class="material-icons"></md-icon>
+				{{work.title}}
 			</md-button>
 		</md-list-item>
 	  </md-list>
 	</md-sidenav>
 	<md-content flex id="content">
-		<h1 class="level-{workListCrl.work.prioty}">{{workListCrl.work.priotyTitle}}</h1>
-		<h2>{{workListCrl.work.title}}</h2>
-		<p>{{workListCrl.work.detail}}</p>
-
-		<md-button class="share" md-no-ink ng-click="workListCrl.editWork(workListCrl.selected)" aria-label="Edit Work">
-			<md-icon md-svg-icon="share"></md-icon>
+		<div ng-if="workListCrl.work.length == 0">
+			<h1>You do not have any work</h1>
+		</div>
+		<div ng-if="workListCrl.work.length != 0">
+			<h1 class="level-{workListCrl.work.prioty}">{{workListCrl.work.priotyTitle}} :</h1>
+			<h2>{{workListCrl.work.title}}</h2>
+			<p>{{workListCrl.work.detail}}</p>
+		</div>
+		<md-button ng-if="workListCrl.work.length != 0" class="share" md-no-ink ng-click="workListCrl.editWork(workListCrl.selected)" title="Edit" aria-label="Edit work">
+			<md-icon md-svg-icon="build"></md-icon>
+		</md-button>
+		<md-button class="add" md-no-ink ng-click="workListCrl.addWork()" title="Add" aria-label="Add work">
+			<md-icon md-svg-icon="add"></md-icon>
+		</md-button>
+		<md-button class="delete" md-no-ink ng-click="workListCrl.deleteWork(workListCrl.selected, event)" title="Delete" aria-label="Delete work">
+			<md-icon md-svg-icon="delete"></md-icon>
 		</md-button>
 	</md-content>
 </div>
-
-<!-- <ul>
-	<li ng-repeat="work in workListCrl.works"><a ng-href="{{(work.url_detail) ? work.url_detail : workListCrl.url_detail(work.id)}}" >{{work.title}}</a>
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a ng-href="javascript:void(0)" ng-click="workListCrl.deleteWork($index, work.id)">[X]</a></li>
-</ul> -->
-<!-- <div>
-    <form ng-submit="workListCrl.saveWork()">
-        <input type="text" ng-model="workListCrl.title" placeholder="Your title of work"/> <br /><br /><br /><br /><br />
-        <textarea ng-model="workListCrl.detail" placeholder="Detail..." ></textarea><br /><br /><br /><br />
-        <input type="submit" value="Save" />
-    </form>
-</div> -->

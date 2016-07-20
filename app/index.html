@@ -1,6 +1,8 @@
-<!DOCTYPE html>
+<!DOCTYPE html >
 <html lang="en-US" ng-app="workListModule">
 <head>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	
 	<script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -22,13 +24,12 @@
 	<script src="work-list/work-list.component.js"></script>
 
 	<script src="work-detail/work-detail.module.js"></script>
-	<!-- <script src="work-detail/work-detail.component.js"></script> -->
 
 	<script src="core/core.module.js"></script>
 	<script src="core/work/work.module.js"></script>
 	<script src="core/work/work.service.js"></script>
 </head>
-<body ng-cloak="">
+<body ng-cloak="" layout="column">
     <div ng-view layout="row" style="min-height: 100%;"></div>
 </body>
 </html>

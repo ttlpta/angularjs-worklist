@@ -1,3 +1,3 @@
 angular.module('workListModule',
-	['workListComponent', 'core', 'ngRoute', 'workDetailComponent']
+	['workListComponent', 'core', 'ngRoute']
 );

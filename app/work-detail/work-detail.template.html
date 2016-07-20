@@ -1,18 +1,39 @@
 <md-bottom-sheet class="md-list md-has-header">
-    <md-subheader><h2>Edit Work</h2></md-subheader>
-	<form layout="column" name="workDetailForm" ng-submit="workDetailCtrl.saveMemo()" >
-		<md-content>
-			<!-- Title: <input name="title" ng-model="workDetailCtrl.work.title" ng-change="workDetailCtrl.changed()"/> -->
+    <md-subheader><h2>{{workDetailCtrl.formTitle}}</h2></md-subheader>
+	<form name="workDetailForm" ng-submit="workDetailCtrl.saveWork()">
+		<md-content ng-if="workDetailCtrl.formType == 1">
 			<md-input-container class="md-block" flex-gt-sm>
-				<label>Title</label>
-				<input ng-model="workDetailCtrl.work.title">
+				<label>Title :</label>
+				<input ng-model="workDetailCtrl.work.title" />
 			</md-input-container>
 			<md-input-container class="md-block" flex-gt-sm>
-				<label>Detail</label>
+				<label>Detail :</label>
 				<textarea rows="3" ng-model="workDetailCtrl.work.detail"></textarea>
 			</md-input-container>   
-			<!-- Detail: <input name="detail" ng-model="workDetailCtrl.work.detail" ng-change="workDetailCtrl.changed()"/> -->
-			<md-button class="md-raised md-primary">Save</md-button/>
+			<p>Prioty :</p>
+			<md-radio-group ng-model="workDetailCtrl.work.prioty">
+				<md-radio-button value="3">Must do</md-radio-button>
+				<md-radio-button value="2">Should do</md-radio-button>
+				<md-radio-button value="1">Do after</md-radio-button>
+			</md-radio-group>
+			<md-button type="submit" class="md-raised md-primary">Save</md-button>
+		</md-content>
+		<md-content ng-if="workDetailCtrl.formType == 2">
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Title :</label>
+				<input ng-model="workListCrl.work.title" />
+			</md-input-container>
+			<md-input-container class="md-block" flex-gt-sm>
+				<label>Detail :</label>
+				<textarea rows="3" ng-model="workListCrl.work.detail">{{workListCrl.work.detail}}</textarea>
+			</md-input-container>   
+			<p>Prioty :</p>
+			<md-radio-group ng-model="workListCrl.work.prioty">
+				<md-radio-button value="3">Must do</md-radio-button>
+				<md-radio-button value="2">Should do</md-radio-button>
+				<md-radio-button value="1">Do after</md-radio-button>
+			</md-radio-group>
+			<md-button type="submit" class="md-raised md-primary">Save</md-button>
 		</md-content>
 	</form>
 </md-bottom-sheet>
